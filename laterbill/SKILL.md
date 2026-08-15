@@ -1,6 +1,6 @@
 ---
 name: laterbill
-description: 「하다 만 일 종결반 (Laterbill)」 — 로컬 AI 대화에 남은 미완료 업무를 추적하고, 세 가지 실행 가능한 종결안을 제시하는 상환 에이전트다. Claude Code·Codex의 프로젝트와 마지막 대화로 돌아가는 좌표를 보존하며 빠른 진전·장애물 해소·완결 우선의 종결안 3개를 제시한다. 선택안의 실행계획과 자가개선 가드레일도 만든다. 사용자가 "하다 만 일 종결반", "내가 미룬 일", "뭐 하다 말았지", "중단된 프로젝트", "unfinished projects", "what did I abandon"처럼 미완료 업무를 점검하거나 /laterbill을 호출할 때 사용한다. 읽기 전용·로컬 전용이며 민감 원문은 승인 전에 숨긴다.
+description: 「하다 만 일 종결반 (Laterbill)」 — 로컬 AI 대화에 남은 미완료 업무를 추적하고, 세 가지 실행 가능한 종결안을 제시하는 상환 에이전트다. `/laterbill` 호출 시 청구서를 자동 발행하고, `/laterbill 수동` 호출 시 수집 요약을 먼저 보여준 뒤 사용자의 `청구서 발행` 확인을 기다린다. Claude Code·Codex의 프로젝트와 마지막 대화로 돌아가는 좌표를 보존하며 빠른 진전·장애물 해소·완결 우선의 종결안 3개와 자가개선 가드레일을 만든다. 사용자가 "하다 만 일 종결반", "내가 미룬 일", "뭐 하다 말았지", "중단된 프로젝트", "unfinished projects", "what did I abandon"처럼 미완료 업무를 점검할 때도 사용한다. 읽기 전용·로컬 전용이며 민감 원문은 승인 전에 숨긴다.
 ---
 
 # 하다 만 일 종결반 (Laterbill)
@@ -24,10 +24,27 @@ description: 「하다 만 일 종결반 (Laterbill)」 — 로컬 AI 대화에 
 
 ## 빠른 시작
 
+### 호출과 발행 모드
+
+- `/laterbill` 또는 별도 모드가 없는 자연어 호출: 즉시 `scripts/run.py --max-items 10`을
+  실행하고 같은 응답에서 청구서를 자동 발행하라. 추가 확인을 요구하지 마라.
+- `/laterbill 수동`: `scripts/run.py --manual --max-items 10`을 실행해 수집 건수와
+  런타임별 통계만 보여주고 멈춰라. 프로젝트명·경로·세션·원문·상환안은 아직 출력하지 마라.
+- 수동 모드 뒤 사용자가 `청구서 발행`이라고 하면 일반 실행기로 전체 청구서를 발행하라.
+  `발행 취소`라고 하면 아무것도 발행하지 말고 종료하라.
+- 자동·수동은 발행 시점만 다르다. 두 모드 모두 수집은 읽기 전용이고 민감 원문 승인
+  경계를 유지한다.
+
+```text
+/laterbill          # 자동: 수집 → 심사 → 청구서 즉시 발행
+/laterbill 수동     # 수동: 안전한 수집 요약 → 사용자 확인 → 청구서 발행
+```
+
 PowerShell의 네이티브 파이프 인코딩 손실을 피하려면 통합 실행기를 사용하라.
 
 ```bash
 python scripts/run.py --demo
+python scripts/run.py --demo --manual
 python scripts/run.py --max-items 10
 python scripts/run.py --format html -o bill.html
 ```

@@ -436,6 +436,20 @@ check(
     and not approved_items[1]["repayment_options"],
 )
 
+# 34 — 기본 호출은 자동 발행하고 수동 모드는 안전한 요약에서 멈춘다.
+manual_wrapper = run(["scripts/run.py", "--demo", "--manual", "--max-items", "6"])
+check(
+    "자동 발행과 수동 발행 대기가 명확히 분리된다",
+    "청구 내역" in wrapper.stdout
+    and manual_wrapper.returncode == 0
+    and "청구서 발행 대기" in manual_wrapper.stdout
+    and "청구서는 아직 발행하지 않았습니다" in manual_wrapper.stdout
+    and "청구 내역" not in manual_wrapper.stdout
+    and "마지막으로 남긴 말" not in manual_wrapper.stdout
+    and "todo-app" not in manual_wrapper.stdout,
+    manual_wrapper.stderr.strip()[:120],
+)
+
 # ---------------------------------------------------------------------------
 failed = [entry for entry in results if not entry[1]]
 for name, ok, detail in results:

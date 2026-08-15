@@ -46,15 +46,15 @@ Laterbill의 기본 동작은 읽기 전용·로컬 전용입니다. 상환안�
 
 최신 Codex의 `session_meta → turn_context → response_item` envelope와 Claude Code의 직접 메시지 형식을 각각 파싱합니다. 런타임별 발견 파일 수, 읽은 파일 수와 실제 파싱 대화 수를 따로 보고합니다. 표준 라이브러리만 사용해 추가 설치가 없고 Windows와 POSIX 경로를 함께 처리합니다. PowerShell의 네이티브 파이프 인코딩 차이도 통합 실행기로 우회합니다.
 
-`python laterbill/scripts/selftest.py` 한 줄로 33개 검증을 실행합니다. 최신 Codex 파싱, source_refs, 익명화, 상환안 세 개의 차별성, 배포·장애물별 추천, 근거 부족 시 생성 거부, 상세계획 최대 세 작업, 분납 한 작업, 탕감 0작업, 민감 원문 승인 전 숨김, 항목별 승인, 자가개선 가드레일, 프로젝트 무변경, HTML 주입 차단과 네트워크 라이브러리 부재를 실제 코드로 검사합니다.
+`python laterbill/scripts/selftest.py` 한 줄로 34개 검증을 실행합니다. 최신 Codex 파싱, source_refs, 자동·수동 발행 분리, 익명화, 상환안 세 개의 차별성, 배포·장애물별 추천, 근거 부족 시 생성 거부, 상세계획 최대 세 작업, 분납 한 작업, 탕감 0작업, 민감 원문 승인 전 숨김, 항목별 승인, 자가개선 가드레일, 프로젝트 무변경, HTML 주입 차단과 네트워크 라이브러리 부재를 실제 코드로 검사합니다.
 
-공개 실행 증거는 개인 기록이 아니라 합성 fixture만 입력으로 사용한 실제 코드 실행입니다. 제출 직전 `python tools/verify-release.py`를 연속 두 번 실행했습니다. 이 명령은 현재 Skill에서 33개 테스트를 실행하고, allowlist로 ZIP을 새로 만든 뒤, 임시 폴더에 압축을 풀어 그 사본에서 같은 33개 테스트를 다시 실행합니다. 두 실행에서 ZIP 해시는 같았습니다.
+공개 실행 증거는 개인 기록이 아니라 합성 fixture만 입력으로 사용한 실제 코드 실행입니다. 제출 직전 `python tools/verify-release.py`를 연속 두 번 실행했습니다. 이 명령은 현재 Skill에서 34개 테스트를 실행하고, allowlist로 ZIP을 새로 만든 뒤, 임시 폴더에 압축을 풀어 그 사본에서 같은 34개 테스트를 다시 실행합니다. 두 실행에서 ZIP 해시는 같았습니다.
 
 ```text
-source:     33/33 통과
-fresh ZIP:  33/33 통과
+source:     34/34 통과
+fresh ZIP:  34/34 통과
 ZIP:        13 files · 67,350 bytes
-SHA-256:    ef6e1716cb507dd3c6d96a8529cbb1acb1a3b2f36447bc04a609b1bdcf534d65
+SHA-256:    c3a8e282cea3af1311ba6466c5c43e3589c4db769abd06743ab88d52e8fe4d63
 read-only:  README.md before SHA-256 == after SHA-256 · true
 public:     source_refs=[] · project=<anonymized> · item_id=lb_public_a
 ```
@@ -77,7 +77,7 @@ Laterbill은 사용자를 심판하는 청구서가 아닙니다. 잊힌 일을 
 2. `evidence/evidence-2.png` — Claude Code·Codex 기록 수집부터 프로젝트·마지막 세션 복귀와 종결안 선택까지의 흐름
 3. `evidence/evidence-3.png` — 빠른 진전·장애물 해소·완결 우선의 세 종결안과 자가개선 가드레일 비교
 4. `evidence/evidence-4.png` — 근거 부족 시 발행 거부, 민감 원문 승인 대기, 공개 익명화의 안전 동작
-5. `evidence/evidence-5.png` — 현재 소스와 새로 압축 해제한 ZIP에서 각각 33/33 테스트를 통과한 실행 증거
+5. `evidence/evidence-5.png` — 현재 소스와 새로 압축 해제한 ZIP에서 각각 34/34 테스트를 통과한 실행 증거
 
 ## 라이선스와 최종 확인
 

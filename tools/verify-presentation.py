@@ -35,8 +35,8 @@ assert "class=\"ace-full\"" in html
 assert "Coach</small>" not in html and ">ACE</b>" not in html
 assert all(key in html for key in ("HOW TO USE · ACTUAL RUN", "ACTUAL RUN · ITEM 02", "SYNTHETIC FIXTURE", "actual-demo.html"))
 assert "SYNTHETIC FIXTURE" in html
-assert all(key in html for key in ("/laterbill", "2번 상환", "C안으로 계획", "승인 후에만 실행"))
-assert all(key in html for key in ("상환</b> 최대 3작업", "분납</b> 첫 작업 30분", "탕감</b> 실행 0"))
+assert all(key in html for key in ("/laterbill", "청구서 자동 발행", "2번 상환", "C안 → 승인 후 실행"))
+assert all(key in html for key in ("/laterbill 수동", "청구서 발행", "탕감</b> 실행 0"))
 assert "914턴 → 미납 6건" in html
 
 private_patterns = [r"C:\\Users\\", r"/Users/", r"\.codex[/\\]sessions", r"session_meta"]

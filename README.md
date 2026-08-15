@@ -24,10 +24,15 @@ python laterbill/scripts/run.py --demo
 python laterbill/scripts/selftest.py
 ```
 
+채팅에서는 `/laterbill`을 입력하면 수집부터 청구서 발행까지 자동으로 진행됩니다.
+먼저 수집 범위만 확인하려면 `/laterbill 수동`을 입력하고, 요약을 확인한 뒤
+`청구서 발행` 또는 `발행 취소`를 선택합니다.
+
 실제 로컬 기록으로 실행하려면 `--demo`만 빼면 됩니다.
 
 ```bash
 python laterbill/scripts/run.py --max-items 10
+python laterbill/scripts/run.py --manual --max-items 10
 python laterbill/scripts/run.py --format html -o bill.html
 ```
 
@@ -93,9 +98,9 @@ python laterbill/scripts/install.py --install --runtime claude-code --scope proj
 
 `python laterbill/scripts/selftest.py`는 최신 Codex envelope와 Claude 형식, 런타임별 파싱 통계,
 source_refs, 익명화, 상환안 차별성, 선택안 상세화, 분납, 탕감, 민감정보 승인, 자가개선 루프,
-한글 파이프라인, HTML 주입 차단과 네트워크 부재를 포함한 **33개 검증**을 실행합니다.
+한글 파이프라인, 자동·수동 발행 분리, HTML 주입 차단과 네트워크 부재를 포함한 **34개 검증**을 실행합니다.
 `python tools/verify-release.py`는 Skill ZIP을 새로 만들고 임시 폴더에 압축 해제한 뒤 동일 검증을
-다시 수행합니다. [실제 검증 로그](docs/assets/proof/release-verification.txt)에는 양쪽 `33/33`,
+다시 수행합니다. [실제 검증 로그](docs/assets/proof/release-verification.txt)에는 양쪽 `34/34`,
 ZIP SHA-256, 합성 재개 명령, 익명화 결과와 읽기 전용 전후 해시가 기록되어 있습니다.
 
 - [1분 심사 경로](JUDGE_START_HERE.md)

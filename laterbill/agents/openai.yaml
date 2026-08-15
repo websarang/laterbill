@@ -1,7 +1,7 @@
 interface:
   display_name: "하다 만 일 종결반"
-  short_description: "로컬 AI 대화에 남은 미완료 업무를 추적하고, 세 가지 실행 가능한 종결안을 제시합니다"
-  default_prompt: "Use $laterbill to track unfinished work in my local AI conversations and propose three evidence-grounded closure options."
+  short_description: "로컬 AI 기록에서 미완료 업무 청구서를 자동 발행하고 세 가지 종결안을 제시합니다"
+  default_prompt: "Use $laterbill to scan my local AI conversations read-only and automatically issue an unfinished-work bill with three evidence-grounded closure options."
 
 policy:
   allow_implicit_invocation: true
