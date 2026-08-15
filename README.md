@@ -103,5 +103,6 @@ ZIP SHA-256, 합성 재개 명령, 익명화 결과와 읽기 전용 전후 해�
 - [합성 fixture 심사 예시](laterbill/samples/adjudicated-bill.md)
 - [현재 소스·새 ZIP 실제 검증 로그](docs/assets/proof/release-verification.txt)
 - [공개 데모](https://websarang.github.io/laterbill/)
+- [결선 발표 자료](https://websarang.github.io/laterbill/presentation/) · [PNG 10장](docs/assets/presentation/)
 
 AI 반려에이전트 스킬톤 출품작 · 제작자 에이스

@@ -30,6 +30,9 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 - SHA-256: `ef6e1716cb507dd3c6d96a8529cbb1acb1a3b2f36447bc04a609b1bdcf534d65`
 - 공개 증거: `docs/assets/proof/release-verification.txt`
 - 이미지: `docs/assets/evidence/evidence-1.webp`부터 `evidence-5.webp`
+- 결선 발표: `docs/presentation/index.html` · 10장 · 1920×1080 PNG는 `docs/assets/presentation/`
+- 실제 합성 Skill 실행 화면: `docs/presentation/actual-demo.html`
+- 발표 브랜드 에셋: `docs/assets/presentation/ace-coach.png` · 에이스 / 최학곤 배지
 - 독립 심사: 45/50, 47/50 · 평균 92/100 · 치명적 결함 0 · 필수 수정 0
 - 심사 감사 기록: `.omx/artifacts/ask-codex-laterbill-judge-20260815.md`
 
@@ -45,6 +48,7 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 
 - 저장소: <https://github.com/websarang/laterbill>
 - 데모: <https://websarang.github.io/laterbill/>
+- 결선 발표: <https://websarang.github.io/laterbill/presentation/>
 - 제출 원고: `submission/SUBMISSION.md`
 - 제출 ZIP: `laterbill-skill.zip`
 
@@ -62,3 +66,5 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 - 공개 자료는 합성 fixture와 익명화 결과만 사용한다.
 - 근거 없는 성능·호환성·수상 보장을 추가하지 않는다.
 - 사용자 승인 전 파일 수정, 배포 같은 상환 실행을 하지 않는다.
+- 발표 자료를 수정하면 `powershell -ExecutionPolicy Bypass -File tools/capture-presentation.ps1`로 PNG 10장을 다시 만들고 `python tools/verify-presentation.py`, `python tools/verify-presentation-visual.py`, `node tools/verify-presentation-navigation.mjs`를 실행한다. 마지막 명령에는 번들 Node 모듈 경로를 `RUNTIME_NODE_MODULES`로 지정한다.
+- 발표 자료는 2026-08-15 사용자 승인에 따라 GitHub `main` 공개 대상에 포함했다.

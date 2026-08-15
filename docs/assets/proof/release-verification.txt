@@ -1,5 +1,5 @@
 ﻿LATERBILL RELEASE VERIFICATION
-generated_at_utc=2026-08-15T06:15:16+00:00
+generated_at_utc=2026-08-15T06:47:33+00:00
 
 $ python laterbill/scripts/selftest.py
 PASS  최신 Codex envelope에서 세션·프로젝트·대화를 읽는다

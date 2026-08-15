@@ -1,0 +1,160 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>하다 만 일 종결반 (Laterbill) · LB-20260815-06</title>
+<style>
+  :root {
+    --paper:#F4F0E6; --sheet:#FBF9F3; --ink:#171916; --teal:#00756E;
+    --teal-pale:#E8F2EF; --teal-bright:#80D0C9; --muted:#5E625D;
+    --rule:#BFC5BF; --brick:#A63D2F;
+    --sans:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,
+           "Segoe UI","Malgun Gothic",sans-serif;
+    --mono:"SFMono-Regular",Menlo,Consolas,"D2Coding",monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:clamp(1rem,4vw,3rem) 1rem; background:var(--paper);
+    color:var(--ink); font-family:var(--sans); line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet {
+    max-width:780px; margin:0 auto; background:var(--sheet);
+    border:1px solid var(--ink); padding:clamp(1.5rem,5vw,3.5rem);
+  }
+
+  /* ---- letterhead ---- */
+  .head { position:relative; }
+  h1 {
+    margin:0; font-size:clamp(2.6rem,9vw,4.4rem); font-weight:700;
+    letter-spacing:-0.055em; line-height:0.95;
+  }
+  .kicker {
+    display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; align-items:baseline;
+    margin-top:1rem; font-family:var(--mono); font-size:.72rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--teal);
+  }
+  .kicker b { color:var(--ink); font-weight:700; }
+  .stamp {
+    position:absolute; top:-.5rem; right:0; transform:rotate(-9deg);
+    border:2px solid var(--brick); color:var(--brick); padding:.35rem .7rem .3rem;
+    text-align:center; line-height:1.1; opacity:.9;
+  }
+  .stamp .big {
+    display:block; font-size:1.35rem; font-weight:700; letter-spacing:-0.03em;
+  }
+  .stamp .small {
+    display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.14em;
+  }
+  .bar { height:4px; background:var(--ink); margin:1.5rem 0 0; }
+
+  /* ---- ruled meta rows ---- */
+  .rows { margin:0 0 2.5rem; }
+  .row {
+    display:flex; justify-content:space-between; gap:1rem;
+    padding:.55rem 0; border-bottom:1px solid var(--rule); font-size:.88rem;
+  }
+  .row dt { color:var(--muted); margin:0; white-space:nowrap; }
+  .row dd { margin:0; text-align:right; font-variant-numeric:tabular-nums; }
+
+  /* ---- section headings ---- */
+  h2 {
+    margin:2.75rem 0 1rem; font-size:clamp(1.5rem,4vw,2.1rem); font-weight:700;
+    letter-spacing:-0.045em;
+  }
+  h2 .n { font-family:var(--mono); font-size:.6em; color:var(--teal);
+           letter-spacing:.1em; margin-right:.6rem; }
+
+  /* ---- totals ---- */
+  /* 칸 사이 1px 간격에 배경색이 비쳐 구분선이 된다. 좁은 화면에서 2×2 로 접히든
+     한 줄로 펴지든 선이 알아서 맞는다 — border 로 그으면 접힐 때 행 사이가 빈다. */
+  .totals {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:1px; border:1px solid var(--ink); background:var(--rule);
+  }
+  .cell { padding:1.1rem 1.2rem; background:var(--teal-pale); }
+  .cell .k { font-size:.72rem; color:var(--muted); letter-spacing:.02em; }
+  .cell .v {
+    display:block; margin-top:.25rem; font-size:1.9rem; font-weight:700;
+    letter-spacing:-0.05em; font-variant-numeric:tabular-nums; line-height:1.1;
+  }
+  .cell .v u { font-size:.9rem; font-weight:400; letter-spacing:0;
+                text-decoration:none; margin-left:.15em; }
+  .cell.hero { background:var(--teal); color:#fff; }
+  .cell.hero .k { color:var(--teal-bright); }
+  .note { margin:.75rem 0 0; font-size:.76rem; color:var(--muted); }
+
+  /* ---- pattern table ---- */
+  table { width:100%; border-collapse:collapse; font-size:.86rem; }
+  th,td { text-align:left; padding:.6rem .5rem; border-bottom:1px solid var(--rule); }
+  th { font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
+        color:var(--muted); border-bottom:1px solid var(--ink); }
+  td.num { font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  /* ---- line items ---- */
+  .item { margin:2rem 0; padding-top:1.25rem; border-top:1px solid var(--rule); }
+  .item:first-of-type { border-top:0; }
+  .item-head { display:flex; gap:.9rem; align-items:flex-start; }
+  .idx {
+    flex:0 0 auto; width:1.9rem; height:1.9rem; background:var(--ink); color:var(--sheet);
+    font-family:var(--mono); font-size:.85rem; display:flex; align-items:center;
+    justify-content:center; margin-top:.2rem;
+  }
+  .item h3 { margin:0; font-size:1.3rem; font-weight:700; letter-spacing:-0.035em;
+              line-height:1.25; }
+  .days { display:block; margin-top:.2rem; font-size:.8rem; color:var(--brick);
+           font-weight:700; font-variant-numeric:tabular-nums; }
+  .days.calm { color:var(--muted); }
+  .facts { margin:1rem 0 0; padding:0 0 0 2.8rem; }
+  .fact {
+    display:flex; align-items:baseline; gap:.4rem; padding:.28rem 0; font-size:.85rem;
+  }
+  .fact .lbl { color:var(--muted); white-space:nowrap; }
+  .fact .dots { flex:1; border-bottom:1px dotted var(--rule); transform:translateY(-.2em); }
+  .fact .val { text-align:right; font-variant-numeric:tabular-nums; }
+  /* 정지 신호는 수치가 아니라 문장이다. 점선 리더로 오른쪽 끝에 밀어 붙이면
+     줄바꿈이 생기며 리더가 짓눌린다. 왼쪽 정렬 블록으로 따로 놓는다. */
+  .sig {
+    display:flex; gap:.5rem; margin:.3rem 0 0; padding:.4rem .7rem;
+    background:var(--teal-pale); font-size:.82rem; line-height:1.5;
+  }
+  .sig b { color:var(--teal); white-space:nowrap; font-weight:700; }
+  .sig span { color:var(--ink); }
+  blockquote {
+    margin:1rem 0 0 2.8rem; padding:.9rem 1.1rem; background:#fff;
+    border-left:3px solid var(--teal); font-size:.92rem;
+  }
+  blockquote p { margin:0; }
+  blockquote cite {
+    display:block; margin-top:.5rem; font-family:var(--mono); font-size:.68rem;
+    letter-spacing:.1em; color:var(--muted); font-style:normal;
+  }
+  .warn {
+    margin:.75rem 0 0 2.8rem; padding:.6rem .8rem; border:1px dashed var(--brick);
+    font-size:.78rem; color:var(--brick);
+  }
+
+  /* ---- tear-off stub ---- */
+  .stub { margin-top:3rem; border-top:2px dashed var(--ink); padding-top:1.5rem; }
+  .stub .perf {
+    font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; color:var(--muted);
+    text-align:center; margin:-2.1rem 0 1.5rem;
+  }
+  .stub .perf span { background:var(--sheet); padding:0 .7rem; }
+  .choices {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:1px; background:var(--ink); border:1px solid var(--ink);
+  }
+  .choice { background:var(--sheet); padding:1rem 1.1rem; }
+  .choice b { display:block; font-size:1.05rem; letter-spacing:-0.02em; }
+  .choice span { display:block; margin-top:.3rem; font-size:.78rem; color:var(--muted); }
+
+  footer {
+    margin-top:2rem; padding-top:1rem; border-top:1px solid var(--rule);
+    font-size:.72rem; color:var(--muted);
+  }
+  .verdict { border:2px solid var(--ink); padding:1.5rem; margin:2rem 0; }
+  .verdict h2 { margin-top:0; }
+  @media print { body { background:#fff; padding:0; } .sheet { border:0; } }
+</style>
+<div class="sheet"><div class='head'><div class='stamp'><span class='big'>미납 6건</span><span class='small'>OVERDUE 71D</span></div><h1>하다 만 일<br>종결반</h1><div class='kicker'><span>THE LATER BILL</span><span><b>LB-20260815-06</b></span><span>기록 1 · 대화 913턴</span></div></div><div class='bar'></div><dl class='rows'><div class='row'><dt>청구 기간</dt><dd>2026-07-16 — 2026-08-15</dd></div><div class='row'><dt>채권자</dt><dd>과거의 나</dd></div><div class='row'><dt>채무자</dt><dd>오늘의 나</dd></div><div class='row'><dt>발행</dt><dd>반려에이전트</dd></div></dl><h2><span class='n'>01</span>총계</h2><div class='totals'><div class='cell'><span class='k'>미납 항목</span><span class='v'>6<u>건</u></span></div><div class='cell'><span class='k'>묶여 있는 원금</span><span class='v'>914<u>턴</u></span></div><div class='cell hero'><span class='k'>누적 이자 · 재진입</span><span class='v'>14<u>회</u></span></div><div class='cell'><span class='k'>최장 연체</span><span class='v'>71<u>일</u></span></div></div><p class='note'>원금은 이 일에 이미 쏟아부은 대화 턴 수, 이자는 다시 열었다가 또 떠나며 맥락을 처음부터 다시 쌓아야 했던 횟수입니다.</p><h2><span class='n'>02</span>반복해서 멈추는 지점</h2><table><tr><th>지점</th><th>건수</th><th>해당 항목</th></tr><tr><td>배포·게시 직전 정지</td><td class='num'>2건</td><td>blog-migration, portfolio-site</td></tr></table><p class='note'>사람에 대한 판정이 아니라 장부에 반복해 찍힌 좌표입니다.</p><h2><span class='n'>03</span>청구 내역</h2><div class='item'><div class='item-head'><div class='idx'>1</div><div><h3>todo-app</h3><span class='days'>연체 26일</span></div></div><div class='facts'><div class='fact'><span class='lbl'>유형</span><span class='dots'></span><span class='val'>중단된 프로젝트</span></div><div class='fact'><span class='lbl'>상태</span><span class='dots'></span><span class='val'>납부 임박</span></div><div class='fact'><span class='lbl'>원금</span><span class='dots'></span><span class='val'>338턴</span></div><div class='fact'><span class='lbl'>이자</span><span class='dots'></span><span class='val'>3번 다시 열었다가 3번 다 떠났습니다</span></div><div class='fact'><span class='lbl'>재진입 간격</span><span class='dots'></span><span class='val'>5.2일, 2.6일, 2.0일</span></div><div class='fact'><span class='lbl'>납부 기한</span><span class='dots'></span><span class='val'>0일 뒤 · 평균 3.3일마다 돌아왔는데 이번엔 26일째 (+22.7일)</span></div><div class='sig'><b>그 무렵 다른 프로젝트가 시작됨</b><span>멈춘 지 3일 안에 `blog-migration` 프로젝트가 새로 시작되어 186턴이 들어갔음</span></div><div class='sig'><b>인증·결제 단계에서 정지</b><span>마지막 대화들에 인증·결제 관련 언급이 있고, 그 뒤 해결됐다는 신호가 없음</span></div><div class='sig'><b>원본 프로젝트</b><span>합성 데모 — 실제 기록에서는 프로젝트 경로와 재개 명령 제공</span></div></div><blockquote><p>로그인은 되는데 새로고침하면 세션이 풀려. 어디에 저장해야 맞아?</p><cite>마지막으로 남긴 말 · 2026-07-20</cite></blockquote><h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th><th>완료 조건</th><th>시간</th></tr><tr><td><b>A</b></td><td>30분 재진입</td><td>마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.</td><td>현재 재현 결과와 바로 다음 행동 하나가 확인됨</td><td>30분</td></tr><tr><td><b>B ★</b></td><td>막힌 단계 분리</td><td>마지막 인증·결제 단계를 최소 조건으로 재현하고 필요한 권한과 설정을 분리한다.</td><td>막힘의 재현 조건과 해결에 필요한 입력이 한 목록으로 정리됨</td><td>60분</td></tr><tr><td><b>C</b></td><td>완료 조건까지 닫기</td><td>프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다.</td><td>검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨</td><td>120분</td></tr></table></div><div class='item'><div class='item-head'><div class='idx'>2</div><div><h3>portfolio-site</h3><span class='days'>연체 9일</span></div></div><div class='facts'><div class='fact'><span class='lbl'>유형</span><span class='dots'></span><span class='val'>중단된 프로젝트</span></div><div class='fact'><span class='lbl'>상태</span><span class='dots'></span><span class='val'>납부 임박</span></div><div class='fact'><span class='lbl'>원금</span><span class='dots'></span><span class='val'>216턴</span></div><div class='fact'><span class='lbl'>이자</span><span class='dots'></span><span class='val'>4번 다시 열었다가 4번 다 떠났습니다</span></div><div class='fact'><span class='lbl'>재진입 간격</span><span class='dots'></span><span class='val'>3.3일, 6.0일, 10.6일, 13.9일</span></div><div class='fact'><span class='lbl'>납부 기한</span><span class='dots'></span><span class='val'>0일 뒤 · 평균 8.4일마다 돌아왔는데 이번엔 9일째 (+0.6일)</span></div><div class='sig'><b>간격이 점점 벌어짐</b><span>재진입 간격이 평균 4.7일 → 12.2일로 벌어지는 추세</span></div><div class='sig'><b>배포·게시 직전 정지</b><span>마지막 대화들에 배포·게시 관련 언급이 있고, 그 뒤 완료됐다는 신호가 없음</span></div><div class='sig'><b>반복해서 다시 시작함</b><span>&quot;처음부터 다시&quot;, &quot;리팩터링&quot; 류의 표현이 3번 등장</span></div><div class='sig'><b>원본 프로젝트</b><span>합성 데모 — 실제 기록에서는 프로젝트 경로와 재개 명령 제공</span></div></div><blockquote><p>배포 직전인데 빌드가 자꾸 실패해. 어디부터 봐야 할까?</p><cite>마지막으로 남긴 말 · 2026-08-06</cite></blockquote><h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th><th>완료 조건</th><th>시간</th></tr><tr><td><b>A</b></td><td>30분 재진입</td><td>마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.</td><td>현재 재현 결과와 바로 다음 행동 하나가 확인됨</td><td>30분</td></tr><tr><td><b>B</b></td><td>기존 결과 채택 기준 확정</td><td>새로 작성하지 말고 현재 결과 중 유지할 부분과 폐기 기준을 먼저 정한다.</td><td>유지할 결과 하나와 폐기 기준이 기록됨</td><td>60분</td></tr><tr><td><b>C ★</b></td><td>완료 조건까지 닫기</td><td>프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다.</td><td>검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨</td><td>120분</td></tr></table></div><div class='item'><div class='item-head'><div class='idx'>3</div><div><h3>blog-migration</h3><span class='days'>연체 9일</span></div></div><div class='facts'><div class='fact'><span class='lbl'>유형</span><span class='dots'></span><span class='val'>중단된 프로젝트</span></div><div class='fact'><span class='lbl'>상태</span><span class='dots'></span><span class='val'>납부 임박</span></div><div class='fact'><span class='lbl'>원금</span><span class='dots'></span><span class='val'>186턴</span></div><div class='fact'><span class='lbl'>이자</span><span class='dots'></span><span class='val'>2번 다시 열었다가 2번 다 떠났습니다</span></div><div class='fact'><span class='lbl'>재진입 간격</span><span class='dots'></span><span class='val'>5.3일, 4.6일</span></div><div class='fact'><span class='lbl'>납부 기한</span><span class='dots'></span><span class='val'>5일 뒤 · 본인이 직접 말한 기한 — 이번 주까지</span></div><div class='sig'><b>배포·게시 직전 정지</b><span>마지막 대화들에 배포·게시 관련 언급이 있고, 그 뒤 완료됐다는 신호가 없음</span></div><div class='sig'><b>원본 프로젝트</b><span>합성 데모 — 실제 기록에서는 프로젝트 경로와 재개 명령 제공</span></div></div><blockquote><p>이번 주까지 옮겨야 하는데 이미지 경로는 어떻게 일괄로 바꿔? 그것만 되면 바로 게시할 거야.</p><cite>마지막으로 남긴 말 · 2026-08-06</cite></blockquote><h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th><th>완료 조건</th><th>시간</th></tr><tr><td><b>A</b></td><td>30분 재진입</td><td>마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.</td><td>현재 재현 결과와 바로 다음 행동 하나가 확인됨</td><td>30분</td></tr><tr><td><b>B</b></td><td>마지막 질문 해소</td><td>마지막 대화의 열린 질문을 재현 가능한 한 문장으로 바꾸고 답에 필요한 입력을 확인한다.</td><td>열린 질문과 필요한 입력이 명시됨</td><td>60분</td></tr><tr><td><b>C ★</b></td><td>완료 조건까지 닫기</td><td>프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다.</td><td>검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨</td><td>120분</td></tr></table></div><div class='item'><div class='item-head'><div class='idx'>4</div><div><h3>crawler</h3><span class='days'>연체 5일</span></div></div><div class='facts'><div class='fact'><span class='lbl'>유형</span><span class='dots'></span><span class='val'>중단된 프로젝트</span></div><div class='fact'><span class='lbl'>상태</span><span class='dots'></span><span class='val'>납부 임박</span></div><div class='fact'><span class='lbl'>원금</span><span class='dots'></span><span class='val'>75턴</span></div><div class='fact'><span class='lbl'>이자</span><span class='dots'></span><span class='val'>4번 다시 열었다가 4번 다 떠났습니다</span></div><div class='fact'><span class='lbl'>재진입 간격</span><span class='dots'></span><span class='val'>3.4일, 3.4일, 2.8일, 1.1일</span></div><div class='fact'><span class='lbl'>납부 기한</span><span class='dots'></span><span class='val'>0일 뒤 · 평균 2.7일마다 돌아왔는데 이번엔 5일째 (+2.3일)</span></div><div class='sig'><b>원본 프로젝트</b><span>합성 데모 — 실제 기록에서는 프로젝트 경로와 재개 명령 제공</span></div></div><blockquote><p>차단당하는 것 같은데 요청 간격을 얼마로 두면 될까?</p><cite>마지막으로 남긴 말 · 2026-08-10</cite></blockquote><h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th><th>완료 조건</th><th>시간</th></tr><tr><td><b>A ★</b></td><td>30분 재진입</td><td>마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.</td><td>현재 재현 결과와 바로 다음 행동 하나가 확인됨</td><td>30분</td></tr><tr><td><b>B</b></td><td>마지막 질문 해소</td><td>마지막 대화의 열린 질문을 재현 가능한 한 문장으로 바꾸고 답에 필요한 입력을 확인한다.</td><td>열린 질문과 필요한 입력이 명시됨</td><td>60분</td></tr><tr><td><b>C</b></td><td>완료 조건까지 닫기</td><td>프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다.</td><td>검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨</td><td>120분</td></tr></table></div><div class='item'><div class='item-head'><div class='idx'>5</div><div><h3>thesis-figures</h3><span class='days calm'>연체 71일</span></div></div><div class='facts'><div class='fact'><span class='lbl'>유형</span><span class='dots'></span><span class='val'>중단된 프로젝트</span></div><div class='fact'><span class='lbl'>상태</span><span class='dots'></span><span class='val'>탕감 권고</span></div><div class='fact'><span class='lbl'>원금</span><span class='dots'></span><span class='val'>98턴</span></div><div class='fact'><span class='lbl'>이자</span><span class='dots'></span><span class='val'>1번 다시 열었다가 1번 다 떠났습니다</span></div><div class='fact'><span class='lbl'>재진입 간격</span><span class='dots'></span><span class='val'>4.6일</span></div><div class='fact'><span class='lbl'>납부 기한</span><span class='dots'></span><span class='val'>추정 불가 · 71일간 돌아오지 않았습니다. 스스로 다시 열릴 가능성은 낮습니다 — 기한이 아니라 결정이 필요합니다.</span></div><div class='sig'><b>원본 프로젝트</b><span>합성 데모 — 실제 기록에서는 프로젝트 경로와 재개 명령 제공</span></div></div><blockquote><p>그래프 색이 색각 이상 기준에 맞는지 확인해줘.</p><cite>마지막으로 남긴 말 · 2026-06-05</cite></blockquote><h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th><th>완료 조건</th><th>시간</th></tr><tr><td><b>A ★</b></td><td>30분 재진입</td><td>마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.</td><td>현재 재현 결과와 바로 다음 행동 하나가 확인됨</td><td>30분</td></tr><tr><td><b>B</b></td><td>마지막 질문 해소</td><td>마지막 대화의 열린 질문을 재현 가능한 한 문장으로 바꾸고 답에 필요한 입력을 확인한다.</td><td>열린 질문과 필요한 입력이 명시됨</td><td>60분</td></tr><tr><td><b>C</b></td><td>완료 조건까지 닫기</td><td>프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다.</td><td>검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨</td><td>120분</td></tr></table></div><div class='item'><div class='item-head'><div class='idx'>6</div><div><h3>crawler</h3><span class='days'>연체 6일</span></div></div><div class='facts'><div class='fact'><span class='lbl'>유형</span><span class='dots'></span><span class='val'>말로 한 약속</span></div><div class='fact'><span class='lbl'>상태</span><span class='dots'></span><span class='val'>연체</span></div><div class='fact'><span class='lbl'>원금</span><span class='dots'></span><span class='val'>1턴</span></div><div class='fact'><span class='lbl'>이자</span><span class='dots'></span><span class='val'>재진입 없음 — 한 번 떠난 뒤 그대로</span></div><div class='fact'><span class='lbl'>납부 기한</span><span class='dots'></span><span class='val'>추정 불가 · 명시된 기한도 재방문 주기도 없음 — 기한을 추정하지 않음</span></div><div class='sig'><b>원본 프로젝트</b><span>합성 데모 — 실제 기록에서는 프로젝트 경로와 재개 명령 제공</span></div></div><blockquote><p>파서 중복되는 부분 리팩터링은 나중에 하자.</p><cite>마지막으로 남긴 말 · 2026-08-09</cite></blockquote><h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th><th>완료 조건</th><th>시간</th></tr><tr><td><b>A ★</b></td><td>30분 재진입</td><td>마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.</td><td>현재 재현 결과와 바로 다음 행동 하나가 확인됨</td><td>30분</td></tr><tr><td><b>B</b></td><td>마지막 질문 해소</td><td>마지막 대화의 열린 질문을 재현 가능한 한 문장으로 바꾸고 답에 필요한 입력을 확인한다.</td><td>열린 질문과 필요한 입력이 명시됨</td><td>60분</td></tr><tr><td><b>C</b></td><td>완료 조건까지 닫기</td><td>프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다.</td><td>검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨</td><td>120분</td></tr></table></div><div class='stub'><div class='perf'><span>절취선</span></div><h2 style='margin-top:0'>처리 옵션</h2><p class='note' style='margin-bottom:1.25rem'>각 항목에 대해 셋 중 하나를 고르세요. <b>미루기는 선택지에 없습니다.</b></p><div class='choices'><div class='choice'><b>상환</b><span>지금 다시 엽니다. 마지막 맥락부터 이어서.</span></div><div class='choice'><b>분납</b><span>오늘은 30분만. 다음 한 걸음만 정하고 닫습니다.</span></div><div class='choice'><b>탕감</b><span>정식으로 놓아줍니다. 실패가 아니라 종결입니다.</span></div></div><p class='note'><b>탕감 권고 1건</b> — thesis-figures(71일) · 두 달 넘게 돌아가지 않았다면 그건 미루는 게 아니라 이미 끝난 일입니다.</p></div><footer>읽기 전용으로 수집했습니다 · 외부 전송 0건 · 이메일·토큰·전화번호·홈 경로는 인용문에서 마스킹했습니다<br>이 청구서는 당신을 평가하지 않습니다. 장부를 보여줄 뿐입니다.</footer></div>
+
