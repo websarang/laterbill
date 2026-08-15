@@ -37,6 +37,7 @@ assert all(key in html for key in ("HOW TO USE · ACTUAL RUN", "ACTUAL RUN · IT
 assert "SYNTHETIC FIXTURE" in html
 assert all(key in html for key in ("/laterbill", "텍스트 청구서 표시", "HTML 청구서 열기", "2번 → C안 → 승인"))
 assert all(key in html for key in ("/laterbill 수동", "청구서 발행", "탕감</b> 실행 0"))
+assert all(key in html for key in ("지금 바로 할 일", "여기까지 되면 끝", "첫 빌드 오류 잡기", "배포 직전까지 닫기"))
 assert "914턴 → 미납 6건" in html
 assert "35/35 × 2" in html and "<dd>70</dd>" in html
 

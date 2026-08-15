@@ -175,6 +175,108 @@ def blocker_action(item: dict) -> tuple[str, str, str]:
             "열린 질문과 필요한 입력이 명시됨")
 
 
+def contextual_option_copy(item: dict, snapshot: dict) -> dict[str, tuple[str, str, str]]:
+    """Turn the last words into concrete, user-facing actions without inventing facts."""
+    words = ((item.get("last_words") or {}).get("text") or "").strip()
+    lower = words.lower()
+    guide = (snapshot.get("guidance_files") or ["프로젝트 안내 문서"])[0]
+    verify = (snapshot.get("verification_commands") or [])
+    verify_label = f"`{verify[0]}`" if verify else "프로젝트의 기존 검증 절차"
+
+    if any(token in lower for token in ("원격", "다른 pc", "다른 컴퓨터", "github", "깃허브")):
+        return {
+            "A": ("다른 PC에서 여는 길 확인", "GitHub 연결, 미커밋 파일, 실행 방법을 확인하고 다른 PC에서 이어갈 최소 절차를 정리한다.",
+                  "새 폴더에서 저장소를 내려받아 안내된 명령으로 시작할 수 있음"),
+            "B": ("원격 작업의 빈칸 채우기", "저장소에 올라가지 않은 파일과 로컬에만 있는 설정을 구분해 원격 작업을 막는 항목만 목록화한다.",
+                  "다른 PC에서 빠지는 파일·설정과 옮기는 방법이 한 목록에 정리됨"),
+            "C": ("원격 재개 절차 완성", f"{guide}에 설치·실행·검증 순서를 적고 깨끗한 폴더에서 처음부터 따라 해본다.",
+                  "새 폴더에서 설치부터 실행·검증까지 안내만 보고 재현됨"),
+        }
+    if any(token in lower for token in ("사례글", "원고", "초안", "참가한 대회")):
+        return {
+            "A": ("게시 가능한 초안 만들기", "작성 중인 초안과 참고 페이지를 나란히 열고 반드시 들어갈 사실과 확인이 필요한 내용을 구분한다.",
+                  "출처가 필요한 자리와 보완할 사실이 표시된 초안 1개가 완성됨"),
+            "B": ("사실과 표현 분리", "대회명·참가 내용·결과처럼 검증할 사실을 출처와 대조하고 과장될 수 있는 문장을 따로 표시한다.",
+                  "확인된 사실과 수정할 표현이 구분된 검토 목록이 남음"),
+            "C": ("사례글 게시본 완성", "확인된 사실만 반영해 제목·본문·출처 링크를 갖춘 최종 원고를 한 번 소리 내어 검토한다.",
+                  "빈칸과 미확인 표현 없이 바로 게시할 최종 원고 1개가 준비됨"),
+        }
+    if any(token in lower for token in ("sent", "예약목록", "발송", "수신", "성공한")):
+        return {
+            "A": ("발송 1건의 실제 상태 확인", "가장 최근 발송 1건을 골라 API 응답, 발송 기록, 실제 수신 여부를 차례로 확인한다.",
+                  "`sent`가 접수·발송·수신 중 어느 단계인지 증거와 함께 설명할 수 있음"),
+            "B": ("상태값의 의미 확정", "코드에서 `sent`가 기록되는 조건과 실패 상태로 바뀌는 조건을 찾아 실제 기록과 대조한다.",
+                  "상태값의 생성 조건과 실제 성공을 확인할 추가 증거가 정리됨"),
+            "C": ("발송 확인 흐름 종결", "테스트 발송 1건으로 예약 등록부터 상태 변경과 수신 확인까지 전체 흐름을 점검한다.",
+                  "테스트 1건의 등록·발송·수신 결과가 한 기록으로 남음"),
+        }
+    if "claude" in lower and any(token in lower for token in ("실행", "안돼", "안 돼", "문제")):
+        return {
+            "A": ("실패 원인 한 곳으로 좁히기", "프로젝트 폴더에서 Claude 설치 경로와 버전을 확인하고 실패 명령을 한 번 실행해 첫 오류를 남긴다.",
+                  "원인이 설치·경로·권한·실행 환경 중 하나로 좁혀짐"),
+            "B": ("실행 환경 충돌 확인", "일반 터미널과 현재 실행 환경의 Claude 경로·버전·환경 차이를 비교한다.",
+                  "어느 환경 차이가 실행을 막는지 비교 결과로 확인됨"),
+            "C": ("프로젝트에서 재개 성공", "확인된 정상 명령으로 프로젝트를 열고 기존 세션 재개까지 한 번 검증한다.",
+                  "프로젝트 폴더에서 Claude가 시작되고 기존 작업을 다시 열 수 있음"),
+        }
+    if any(token in lower for token in ("자막", ".srt", "srt 파일")):
+        return {
+            "A": ("첫 1분 자막으로 방식 확인", "전체 영상을 처리하기 전에 첫 1분만 영문 SRT로 만들고 영상에 적용해 타이밍을 확인한다.",
+                  "첫 1분 영문 자막의 순서와 타임코드가 영상에 맞음"),
+            "B": ("음성·싱크 장애물 제거", "잘 들리지 않는 구간과 자막이 밀리는 지점을 표시하고 처리 기준을 먼저 정한다.",
+                  "불명확한 음성과 싱크 보정 기준이 예시 구간과 함께 정리됨"),
+            "C": ("영문·한글 SRT 완성", "영문 자막 전체를 검토한 뒤 자연스러운 한글 자막을 만들고 영상에서 처음부터 끝까지 확인한다.",
+                  "영문·한글 SRT 두 파일이 끝까지 재생되며 누락 구간이 없음"),
+        }
+    if "이미지 경로" in lower or ("이미지" in lower and "일괄" in lower):
+        return {
+            "A": ("이미지 3개로 변환 확인", "대표 이미지 경로 3개만 골라 새 규칙으로 바꾸고 미리보기에서 정상 표시되는지 확인한다.",
+                  "서로 다른 형태의 이미지 3개가 새 위치에서 정상 표시됨"),
+            "B": ("경로 패턴과 예외 분리", "현재 이미지 경로를 상대·절대·외부 주소로 나누고 일괄 변경에서 제외할 예외를 표시한다.",
+                  "변경할 경로 규칙과 건드리지 않을 예외가 한 목록에 정리됨"),
+            "C": ("전체 변환 후 게시 준비", "검증한 규칙으로 전체 경로를 바꾸고 깨진 이미지 검색과 게시 전 미리보기를 실행한다.",
+                  "깨진 이미지가 없고 게시 전 미리보기에서 핵심 페이지가 정상 표시됨"),
+        }
+    if any(token in lower for token in ("빌드", "배포 전", "배포 직전", "deploy")):
+        return {
+            "A": ("첫 빌드 오류 잡기", "현재 빌드를 한 번 실행해 가장 먼저 실패하는 오류와 관련 파일을 기록한다.",
+                  "첫 실패 위치와 바로 수정할 대상 1곳이 확인됨"),
+            "B": ("정상 결과를 지키며 실패 좁히기", "마지막 정상 빌드에서 유지할 결과를 고정한 뒤 현재 변경과 비교해 실패 범위를 하나로 좁힌다.",
+                  "유지할 결과, 재현 명령, 원인 후보 1개가 함께 기록됨"),
+            "C": ("빌드부터 배포 직전까지 닫기", f"빌드 오류를 해결한 뒤 {verify_label}와 배포 전 확인 항목을 순서대로 실행한다.",
+                  "빌드가 통과하고 남은 배포 차단 요소가 없거나 명시적으로 기록됨"),
+        }
+    if any(token in lower for token in ("로그인", "세션", "인증")):
+        return {
+            "A": ("세션이 풀리는 순간 확인", "로그인부터 새로고침까지 가장 짧은 흐름을 한 번 실행하고 세션 값이 사라지는 시점을 기록한다.",
+                  "세션이 끊기는 단계와 바로 확인할 저장 위치 1곳이 확인됨"),
+            "B": ("저장·복원 조건 비교", "세션을 저장하는 코드와 새로고침 때 복원하는 코드를 나란히 확인해 키·만료·도메인 조건을 비교한다.",
+                  "저장과 복원 사이에서 다른 조건이 한 목록으로 정리됨"),
+            "C": ("로그인 유지 검증", "수정 후 로그인·새로고침·재접속 흐름을 차례로 실행해 세션 유지 여부를 확인한다.",
+                  "새로고침과 재접속 뒤에도 로그인 상태가 유지되거나 남은 실패가 기록됨"),
+        }
+    if any(token in lower for token in ("차단", "요청 간격", "크롤")):
+        return {
+            "A": ("요청 1건의 응답 확인", "현재 설정으로 요청 1건만 보내 응답 코드와 재시도 안내 헤더를 기록한다.",
+                  "차단 여부와 서버가 요구하는 대기 조건을 증거로 확인함"),
+            "B": ("허용 범위 먼저 확정", "대상 서비스의 공개 이용 조건과 현재 요청 빈도를 비교해 허용할 간격과 중단 조건을 정한다.",
+                  "준수할 요청 간격·최대 재시도·즉시 중단 조건이 기록됨"),
+            "C": ("안전한 수집 흐름 검증", "정한 간격과 중단 조건을 적용한 소량 실행으로 누락·중복·차단 여부를 확인한다.",
+                  "소량 실행 결과와 중단 조건이 기록되고 차단 없이 종료됨"),
+        }
+
+    target = (snapshot.get("relevant_files") or snapshot.get("manifest_files")
+              or snapshot.get("guidance_files") or ["마지막 작업 결과"])[0]
+    return {
+        "A": ("다음 한 걸음 확정", f"`{target}`와 마지막 대화를 함께 열어 지금 남아 있는 작업을 하나만 표시한다.",
+              "다음에 손댈 대상 1곳과 행동 1개가 적혀 있음"),
+        "B": ("막힌 질문에 필요한 것 모으기", "마지막 질문에 답하려면 필요한 입력·권한·결정을 확인해 없는 것만 목록화한다.",
+              "바로 답할 수 없는 이유와 필요한 입력이 한 목록에 정리됨"),
+        "C": ("검증 가능한 결과로 닫기", f"남은 작업을 처리한 뒤 {verify_label}로 결과를 확인하고 후속 작업을 분리한다.",
+              "검증 결과가 남고 이번 범위의 미완료 작업이 0개이거나 별도 항목으로 분리됨"),
+    }
+
+
 def build_options(item: dict, snapshot: dict) -> tuple[list[dict], str | None]:
     if item.get("sensitive_topics") and not item.get("sensitive_approved"):
         return [], "사적인 사안입니다. 사용자 승인 후에만 상환안을 생성합니다."
@@ -202,22 +304,19 @@ def build_options(item: dict, snapshot: dict) -> tuple[list[dict], str | None]:
         }], "추가 상환안을 만들 대화 근거가 부족합니다.")
 
     evidence = evidence_summary(item)
+    copy = contextual_option_copy(item, snapshot)
     b_title, b_action, b_done = blocker_action(item)
-    verify = (snapshot.get("verification_commands") or [])
-    verify_action = (
-        f"기존 검증 명령 `{verify[0]}`의 현재 결과를 확인하고 완료를 막는 항목만 남긴다."
-        if verify and not public_demo else
-        "프로젝트에 정의된 테스트·빌드·완료 조건을 확인하고 남은 실패만 목록화한다."
-    )
+    if copy.get("B"):
+        b_title, b_action, b_done = copy["B"]
     ship = any(s.get("type") == "stalled_before_ship" for s in signals)
     recommended = "C" if ship else ("B" if signals else "A")
 
     options = [
         {
             "option_id": "A", "strategy": "quick-win", "recommended": recommended == "A",
-            "title": "30분 재진입", "first_action": "마지막 대화의 중단 지점을 한 번 재현하고 현재 상태와 다른 점만 기록한다.",
+            "title": copy["A"][0], "first_action": copy["A"][1],
             "why": evidence, "timebox": 30,
-            "done_when": "현재 재현 결과와 바로 다음 행동 하나가 확인됨",
+            "done_when": copy["A"][2],
             "tradeoff": "가장 빨리 진전하지만 전체 완료까지는 후속 상환이 필요할 수 있음",
         },
         {
@@ -228,8 +327,8 @@ def build_options(item: dict, snapshot: dict) -> tuple[list[dict], str | None]:
         },
         {
             "option_id": "C", "strategy": "completion", "recommended": recommended == "C",
-            "title": "완료 조건까지 닫기", "first_action": verify_action, "why": evidence,
-            "timebox": 120, "done_when": "검증 결과가 통과하거나 남은 차단 요소가 명시적으로 기록됨",
+            "title": copy["C"][0], "first_action": copy["C"][1], "why": evidence,
+            "timebox": 120, "done_when": copy["C"][2],
             "tradeoff": "가장 완결성이 높지만 한 번에 필요한 집중 범위가 큼",
         },
     ]

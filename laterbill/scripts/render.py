@@ -215,7 +215,7 @@ def render_markdown(doc: dict) -> str:
             add("")
             add("**상환안**")
             add("")
-            add("| 안 | 전략 | 첫 행동 | 완료 조건 | 시간 | 장단점 |")
+            add("| 안 | 전략 | 지금 바로 할 일 | 여기까지 되면 끝 | 시간 | 장단점 |")
             add("|---|---|---|---|---:|---|")
             for option in options:
                 mark = " ★ 추천" if option.get("recommended") else ""
@@ -234,7 +234,7 @@ def render_markdown(doc: dict) -> str:
             for task_index, task in enumerate(plan.get("tasks", []), start=1):
                 area = ", ".join(task.get("files_or_area") or [])
                 add(f"{task_index}. `{area}` — {task['command_or_action']} "
-                    f"**완료:** {task['done_when']}")
+                    f"**여기까지 되면 끝:** {task['done_when']}")
             improve = plan.get("self_improvement") or {}
             if improve:
                 add("")
@@ -628,8 +628,8 @@ def render_html(doc: dict) -> str:
                 "</tr>" for o in options
             )
             options_html = (
-                "<h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>첫 행동</th>"
-                f"<th>완료 조건</th><th>시간</th></tr>{rows}</table>"
+                "<h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>지금 바로 할 일</th>"
+                f"<th>여기까지 되면 끝</th><th>시간</th></tr>{rows}</table>"
             )
         elif item.get("repayment_note"):
             options_html = f"<p class='note'>상환안: {esc(item['repayment_note'])}</p>"
@@ -639,7 +639,7 @@ def render_html(doc: dict) -> str:
         if plan:
             task_rows = "".join(
                 f"<li><b>{esc(', '.join(t.get('files_or_area') or []))}</b> — "
-                f"{esc(t['command_or_action'])}<br><small>완료: {esc(t['done_when'])}</small></li>"
+                f"{esc(t['command_or_action'])}<br><small>여기까지 되면 끝: {esc(t['done_when'])}</small></li>"
                 for t in plan.get("tasks", [])
             )
             improve = plan.get("self_improvement") or {}

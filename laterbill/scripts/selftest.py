@@ -303,10 +303,25 @@ snapshot = repayment.inspect_project(option_item)
 options, option_note = repayment.build_options(option_item, snapshot)
 option_item["repayment_options"] = options
 check(
-    "근거가 충분하면 빠른 진전·장애물 해소·완결 우선 3안을 제시한다",
+    "근거에 맞춘 빠른 진전·장애물 해소·완결 우선 3안을 구체적으로 제시한다",
     len(options) == 3 and {o["strategy"] for o in options}
     == {"quick-win", "unblock", "completion"}
-    and len({o["first_action"] for o in options}) == 3 and option_note is None,
+    and len({o["first_action"] for o in options}) == 3 and option_note is None
+    and "첫 빌드 오류" in options[0]["title"]
+    and "유지할 결과" in options[1]["first_action"]
+    and "배포 차단 요소" in options[2]["done_when"]
+    and all(
+        marker in repayment.contextual_option_copy(
+            {"last_words": {"text": words}}, {"public_demo": True}
+        )["A"][1]
+        for words, marker in (
+            ("원격에서도 작업하려면?", "GitHub 연결"),
+            ("사례글로 만들어줘", "초안과 참고 페이지"),
+            ("상태가 sent인데 성공한 거야?", "발송 1건"),
+            ("프로젝트에서 claude 실행이 안돼", "Claude 설치 경로"),
+            ("영상 자막을 SRT로 만들어줘", "첫 1분"),
+        )
+    ),
 )
 
 # 23 — 정지 유형에 맞는 안을 추천한다.

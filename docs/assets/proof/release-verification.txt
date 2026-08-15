@@ -1,22 +1,22 @@
 ﻿LATERBILL RELEASE VERIFICATION
-generated_at_utc=2026-08-15T09:21:30+00:00
+generated_at_utc=2026-08-15T09:47:10+00:00
 
 $ python laterbill/scripts/selftest.py
 PASS  최신 Codex envelope에서 세션·프로젝트·대화를 읽는다
-PASS  근거가 충분하면 빠른 진전·장애물 해소·완결 우선 3안을 제시한다
+PASS  근거에 맞춘 빠른 진전·장애물 해소·완결 우선 3안을 구체적으로 제시한다
 PASS  상환 상세계획은 최대 3개 작업과 자가개선 가드레일을 포함한다
 PASS  민감 원문은 승인 전 Markdown과 HTML에서 기본 숨김 처리된다
 PASS  상환안 생성을 위한 프로젝트 점검은 파일을 변경하지 않는다
 35/35 통과
 
 $ python tools/package-skill.py
-files=13 compressed=69281 unpacked=403718
-sha256=cd8177c3a8c497f1739de422ada7139349eb149ad2027dd4ef2a387c185a2b1f
+files=13 compressed=72873 unpacked=414807
+sha256=485cd46183cb160b322d2b247ec85eafc31dcc541616071f230159506292af6a
 
 $ unzip laterbill-skill.zip -> temporary directory
 $ python <temporary>/laterbill/scripts/selftest.py
 35/35 통과
-zip_sha256=cd8177c3a8c497f1739de422ada7139349eb149ad2027dd4ef2a387c185a2b1f
+zip_sha256=485cd46183cb160b322d2b247ec85eafc31dcc541616071f230159506292af6a
 source_and_extracted_same_result=true
 
 ACTUAL SYNTHETIC BEHAVIOR (no personal records)
