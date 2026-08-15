@@ -18,7 +18,7 @@ python laterbill/scripts/selftest.py
 python tools/verify-release.py
 ```
 
-34/34 PASS가 정상입니다. 최신 Codex `session_meta → turn_context → response_item` 파싱,
+35/35 PASS가 정상입니다. 최신 Codex `session_meta → turn_context → response_item` 파싱,
 Claude 형식, 프로젝트·세션 복귀 좌표, 세 가지 안의 차별성, 분납·탕감, 민감 원문 기본 숨김,
 자가개선 가드레일과 프로젝트 무변경을 실제 코드로 검사합니다.
 두 번째 명령은 새 제출 ZIP을 임시 폴더에 풀고 동일 테스트를 다시 실행합니다.
@@ -30,9 +30,9 @@ Claude 형식, 프로젝트·세션 복귀 좌표, 세 가지 안의 차별성, 
 |---|---|
 | 제출 ZIP | `laterbill-skill.zip` |
 | 파일·크기 | 13 files · 67,311 bytes |
-| SHA-256 | `c3a8e282cea3af1311ba6466c5c43e3589c4db769abd06743ab88d52e8fe4d63` |
-| 현재 소스 | 34/34 통과 |
-| 새 압축 해제본 | 34/34 통과 |
+| SHA-256 | `cd8177c3a8c497f1739de422ada7139349eb149ad2027dd4ef2a387c185a2b1f` |
+| 현재 소스 | 35/35 통과 |
+| 새 압축 해제본 | 35/35 통과 |
 | 공개 입력 | 합성 fixture, 개인 기록 0건 |
 | 복귀 출력 | Codex·Claude 합성 세션 명령 생성 확인 |
 | 공유 출력 | `source_refs=[]`, `project=<anonymized>` |
@@ -58,7 +58,7 @@ python laterbill/scripts/run.py --sessions-root ./laterbill/fixtures/empty
 | 유용함 | 사용자가 TODO를 미리 적을 필요가 없습니다. 프로젝트 폴더·마지막 세션·첫 행동으로 바로 돌아갑니다. |
 | 완성도 | 수집 → 심사 → A·B·C 상환안 → 선택안 상세계획 → 실행 승인 → 결과 기록 → 자가개선 루프가 하나의 흐름입니다. |
 | 재사용성 | Claude Code와 최신 Codex JSONL, Windows/POSIX 경로, 사용자 지정 `--sessions-root`를 지원하며 표준 라이브러리만 사용합니다. |
-| 신뢰성 | 자동·수동 발행 분리, 읽기 전용·로컬 전용, 근거 부족 시 발행 거부, 민감 원문 승인 전 숨김, 익명화, 동기 진단 금지를 34개 테스트로 고정했습니다. |
+| 신뢰성 | 자동·수동 발행 분리, 텍스트·HTML 동일 장부 출력, 읽기 전용·로컬 전용, 민감 원문 승인 전 숨김, 익명화, 동기 진단 금지를 35개 테스트로 고정했습니다. |
 
 ## 설계에서 일부러 하지 않은 것
 

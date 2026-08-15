@@ -35,9 +35,10 @@ assert "class=\"ace-full\"" in html
 assert "Coach</small>" not in html and ">ACE</b>" not in html
 assert all(key in html for key in ("HOW TO USE · ACTUAL RUN", "ACTUAL RUN · ITEM 02", "SYNTHETIC FIXTURE", "actual-demo.html"))
 assert "SYNTHETIC FIXTURE" in html
-assert all(key in html for key in ("/laterbill", "청구서 자동 발행", "2번 상환", "C안 → 승인 후 실행"))
+assert all(key in html for key in ("/laterbill", "텍스트 청구서 표시", "HTML 청구서 열기", "2번 → C안 → 승인"))
 assert all(key in html for key in ("/laterbill 수동", "청구서 발행", "탕감</b> 실행 0"))
 assert "914턴 → 미납 6건" in html
+assert "35/35 × 2" in html and "<dd>70</dd>" in html
 
 private_patterns = [r"C:\\Users\\", r"/Users/", r"\.codex[/\\]sessions", r"session_meta"]
 for pattern in private_patterns:

@@ -450,6 +450,28 @@ check(
     manual_wrapper.stderr.strip()[:120],
 )
 
+# 35 — 한 번 수집한 같은 장부를 텍스트와 HTML로 함께 발행한다.
+dual_output_dir = tempfile.mkdtemp()
+dual_html = os.path.join(dual_output_dir, "bill.html")
+dual_wrapper = run([
+    "scripts/run.py", "--demo", "--max-items", "1",
+    "--also-html", dual_html,
+])
+dual_html_text = (
+    open(dual_html, encoding="utf-8").read() if os.path.isfile(dual_html) else ""
+)
+check(
+    "자동 발행이 텍스트를 보여주고 동일 청구서를 HTML로 만든다",
+    dual_wrapper.returncode == 0
+    and "청구 내역" in dual_wrapper.stdout
+    and f"HTML 청구서: {dual_html}" in dual_wrapper.stdout
+    and "<style>" in dual_html_text
+    and "청구 내역" in dual_html_text
+    and "todo-app" in dual_wrapper.stdout
+    and "todo-app" in dual_html_text,
+    dual_wrapper.stderr.strip()[:120],
+)
+
 # ---------------------------------------------------------------------------
 failed = [entry for entry in results if not entry[1]]
 for name, ok, detail in results:

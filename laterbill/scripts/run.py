@@ -74,9 +74,18 @@ def main() -> int:
         "--manual", action="store_true",
         help="collect records and show a privacy-safe preview; do not issue the bill",
     )
+    parser.add_argument(
+        "--also-html", metavar="PATH",
+        help="print the Markdown bill and also write the same bill as private HTML",
+    )
     parser.add_argument("--format", choices=["md", "html"], default="md")
     parser.add_argument("-o", "--output", default="-")
     args = parser.parse_args()
+
+    if args.manual and args.also_html:
+        parser.error("--manual cannot issue HTML; confirm issuance and run without --manual")
+    if args.format == "html" and args.also_html:
+        parser.error("use either --format html or --also-html, not both")
 
     harvest_args = ["--days", str(args.days), "--max-items", str(args.max_items),
                     "--kinds", args.kinds]
@@ -97,12 +106,21 @@ def main() -> int:
     planned = invoke("repayment.py", [], ledger)
     render_args = ["--format", args.format]
     if args.output != "-":
-        render_args += ["--output", args.output]
+        render_args += ["--output", os.path.abspath(args.output)]
     bill = invoke("render.py", render_args, planned)
+    html_output = None
+    if args.also_html:
+        html_output = os.path.abspath(args.also_html)
+        parent = os.path.dirname(html_output)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
+        invoke("render.py", ["--format", "html", "--output", html_output], planned)
     if args.output == "-":
         sys.stdout.write(bill)
     elif bill:
         sys.stderr.write(bill)
+    if html_output:
+        sys.stdout.write(f"\nHTML 청구서: {html_output}\n")
     return 0
 
 
