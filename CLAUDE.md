@@ -30,6 +30,8 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 - SHA-256: `3ae0173d16f34e8041cc0ff6d5df44ee9a06b475962fceb856bc7d38914ebb3f`
 - 공개 증거: `docs/assets/proof/release-verification.txt`
 - 이미지: `docs/assets/evidence/evidence-1.webp`부터 `evidence-5.webp`
+- 독립 심사: 45/50, 47/50 · 평균 92/100 · 치명적 결함 0 · 필수 수정 0
+- 심사 감사 기록: `.omx/artifacts/ask-codex-laterbill-judge-20260815.md`
 
 검증기 실행 후 ZIP 크기나 해시가 달라지면 이 문서와 제출 원고의 값을 함께 갱신한다.
 
