@@ -30,7 +30,7 @@ Claude 형식, 프로젝트·세션 복귀 좌표, 세 가지 안의 차별성, 
 |---|---|
 | 제출 ZIP | `laterbill-skill.zip` |
 | 파일·크기 | 13 files · 67,311 bytes |
-| SHA-256 | `485cd46183cb160b322d2b247ec85eafc31dcc541616071f230159506292af6a` |
+| SHA-256 | `15ff2988bcd05d52afe91227479a9bd7cbbb24ff9b604fd20af095833d77f6cc` |
 | 현재 소스 | 35/35 통과 |
 | 새 압축 해제본 | 35/35 통과 |
 | 공개 입력 | 합성 fixture, 개인 기록 0건 |

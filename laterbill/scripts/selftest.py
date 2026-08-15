@@ -77,8 +77,13 @@ check("이메일·토큰·비밀번호·전화·홈 경로가 마스킹된다", 
 
 # 5 — HTML 판이 렌더링된다
 html_r = run(["scripts/render.py", "--format", "html"], stdin_text=harvested.stdout)
-check("HTML 청구서가 렌더링된다",
-      "하다 만 일 종결반" in html_r.stdout and "<style>" in html_r.stdout)
+check(
+    "HTML 청구서가 읽기 쉬운 보조 글씨와 함께 렌더링된다",
+    "하다 만 일 종결반" in html_r.stdout and "<style>" in html_r.stdout
+    and "font-size:.92rem" in html_r.stdout
+    and ".note { margin:.75rem 0 0; font-size:.9rem" in html_r.stdout
+    and "font-size:.82rem; font-weight:700" in html_r.stdout,
+)
 
 # 6 — 근거 없는 납부 기한을 만들지 않는다 (스키마 불변식)
 doc = json.loads(harvested.stdout)

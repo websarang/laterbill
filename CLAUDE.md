@@ -26,8 +26,8 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 - 명령: `python tools/verify-release.py`
 - 현재 소스: `35/35 통과`
 - 새 ZIP 압축 해제본: `35/35 통과`
-- ZIP: `laterbill-skill.zip`, 13 files, 72,873 bytes
-- SHA-256: `485cd46183cb160b322d2b247ec85eafc31dcc541616071f230159506292af6a`
+- ZIP: `laterbill-skill.zip`, 13 files, 73,012 bytes
+- SHA-256: `15ff2988bcd05d52afe91227479a9bd7cbbb24ff9b604fd20af095833d77f6cc`
 - 공개 증거: `docs/assets/proof/release-verification.txt`
 - 이미지: `docs/assets/evidence/evidence-1.webp`부터 `evidence-5.webp`
 - 결선 발표: `docs/presentation/index.html` · 10장 · 1920×1080 PNG는 `docs/assets/presentation/`

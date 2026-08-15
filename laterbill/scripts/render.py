@@ -341,8 +341,8 @@ HTML_SHELL = """<!doctype html>
   }}
   .kicker {{
     display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; align-items:baseline;
-    margin-top:1rem; font-family:var(--mono); font-size:.72rem;
-    letter-spacing:.16em; text-transform:uppercase; color:var(--teal);
+    margin-top:1rem; font-family:var(--mono); font-size:.9rem; line-height:1.5;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--teal);
   }}
   .kicker b {{ color:var(--ink); font-weight:700; }}
   .stamp {{
@@ -392,14 +392,16 @@ HTML_SHELL = """<!doctype html>
                 text-decoration:none; margin-left:.15em; }}
   .cell.hero {{ background:var(--teal); color:#fff; }}
   .cell.hero .k {{ color:var(--teal-bright); }}
-  .note {{ margin:.75rem 0 0; font-size:.76rem; color:var(--muted); }}
+  .note {{ margin:.75rem 0 0; font-size:.9rem; line-height:1.65; color:var(--muted); }}
 
   /* ---- pattern table ---- */
-  table {{ width:100%; border-collapse:collapse; font-size:.86rem; }}
+  table {{ width:100%; border-collapse:collapse; font-size:.9rem; }}
   th,td {{ text-align:left; padding:.6rem .5rem; border-bottom:1px solid var(--rule); }}
-  th {{ font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
-        color:var(--muted); border-bottom:1px solid var(--ink); }}
+  th {{ font-size:.92rem; line-height:1.4; font-weight:800; letter-spacing:.04em;
+        color:var(--ink); border-bottom:1px solid var(--ink); }}
   td.num {{ font-variant-numeric:tabular-nums; white-space:nowrap; }}
+  .repayment-table th:last-child,
+  .repayment-table td:last-child {{ width:1%; white-space:nowrap; }}
 
   /* ---- line items ---- */
   .item {{ margin:2rem 0; padding-top:1.25rem; border-top:1px solid var(--rule); }}
@@ -436,8 +438,8 @@ HTML_SHELL = """<!doctype html>
   }}
   blockquote p {{ margin:0; }}
   blockquote cite {{
-    display:block; margin-top:.5rem; font-family:var(--mono); font-size:.68rem;
-    letter-spacing:.1em; color:var(--muted); font-style:normal;
+    display:block; margin-top:.5rem; font-family:var(--mono); font-size:.82rem;
+    line-height:1.5; letter-spacing:.06em; color:var(--muted); font-style:normal;
   }}
   .warn {{
     margin:.75rem 0 0 2.8rem; padding:.6rem .8rem; border:1px dashed var(--brick);
@@ -447,7 +449,8 @@ HTML_SHELL = """<!doctype html>
   /* ---- tear-off stub ---- */
   .stub {{ margin-top:3rem; border-top:2px dashed var(--ink); padding-top:1.5rem; }}
   .stub .perf {{
-    font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; color:var(--muted);
+    font-family:var(--mono); font-size:.82rem; font-weight:700;
+    letter-spacing:.2em; color:var(--muted);
     text-align:center; margin:-2.1rem 0 1.5rem;
   }}
   .stub .perf span {{ background:var(--sheet); padding:0 .7rem; }}
@@ -628,7 +631,7 @@ def render_html(doc: dict) -> str:
                 "</tr>" for o in options
             )
             options_html = (
-                "<h4>상환안</h4><table><tr><th>안</th><th>전략</th><th>지금 바로 할 일</th>"
+                "<h4>상환안</h4><table class='repayment-table'><tr><th>안</th><th>전략</th><th>지금 바로 할 일</th>"
                 f"<th>여기까지 되면 끝</th><th>시간</th></tr>{rows}</table>"
             )
         elif item.get("repayment_note"):
