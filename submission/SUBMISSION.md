@@ -69,7 +69,15 @@ Laterbill은 사용자를 심판하는 청구서가 아닙니다. 잊힌 일을 
 2. GitHub 소스·설치법: <https://github.com/websarang/laterbill>
 3. 실제 릴리스 검증 로그: <https://websarang.github.io/laterbill/assets/proof/release-verification.txt>
 
-공식 제출 화면은 이미지와 이미지 대체 텍스트를 받지 않으므로 별도 첨부하지 않습니다.
+공식 웹 제출 화면은 이미지와 이미지 대체 텍스트를 받지 않지만, 별도 메일 제출본에는 아래 증거 이미지 5장을 함께 첨부합니다.
+
+## 첨부 이미지
+
+1. `evidence/evidence-1.webp` — 일반 회고와 끝내지 않은 일을 원금·연체·이자·기한·탕감으로 청구하는 Laterbill 비교
+2. `evidence/evidence-2.webp` — Claude Code·Codex 기록 수집부터 프로젝트·마지막 세션 복귀와 종결안 선택까지의 흐름
+3. `evidence/evidence-3.webp` — 빠른 진전·장애물 해소·완결 우선의 세 종결안과 자가개선 가드레일 비교
+4. `evidence/evidence-4.webp` — 근거 부족 시 발행 거부, 민감 원문 승인 대기, 공개 익명화의 안전 동작
+5. `evidence/evidence-5.webp` — 현재 소스와 새로 압축 해제한 ZIP에서 각각 33/33 테스트를 통과한 실행 증거
 
 ## 라이선스와 최종 확인
 

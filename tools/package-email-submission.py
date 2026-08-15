@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_INFO = ROOT / "submission" / "SUBMISSION.md"
 SOURCE_SKILL = ROOT / "laterbill-skill.zip"
 SOURCE_LICENSE = ROOT / "LICENSE"
+SOURCE_IMAGES = ROOT / "docs" / "assets" / "evidence"
 TARGET = ROOT / "laterbill-email-submission.zip"
 FIXED_TIME = (2026, 8, 15, 0, 0, 0)
 
@@ -41,11 +42,17 @@ with ZipFile(TARGET, "w") as archive:
     add_bytes(archive, "SUBMISSION.md", SOURCE_INFO.read_bytes())
     add_bytes(archive, "laterbill-skill.zip", SOURCE_SKILL.read_bytes())
     add_bytes(archive, "LICENSE", SOURCE_LICENSE.read_bytes())
+    for image in sorted(SOURCE_IMAGES.glob("evidence-*.webp")):
+        add_bytes(archive, f"evidence/{image.name}", image.read_bytes())
 
 with ZipFile(TARGET) as archive:
-    assert archive.namelist() == ["SUBMISSION.md", "laterbill-skill.zip", "LICENSE"]
+    expected = ["SUBMISSION.md", "laterbill-skill.zip", "LICENSE"] + [
+        f"evidence/evidence-{number}.webp" for number in range(1, 6)
+    ]
+    assert archive.namelist() == expected
     assert archive.testzip() is None
+    assert all(archive.getinfo(name).file_size > 0 for name in expected)
 
 digest = hashlib.sha256(TARGET.read_bytes()).hexdigest()
-print(f"files=3 compressed={TARGET.stat().st_size}")
+print(f"files={len(expected)} compressed={TARGET.stat().st_size}")
 print(f"sha256={digest}")
