@@ -42,12 +42,12 @@ with ZipFile(TARGET, "w") as archive:
     add_bytes(archive, "SUBMISSION.md", SOURCE_INFO.read_bytes())
     add_bytes(archive, "laterbill-skill.zip", SOURCE_SKILL.read_bytes())
     add_bytes(archive, "LICENSE", SOURCE_LICENSE.read_bytes())
-    for image in sorted(SOURCE_IMAGES.glob("evidence-*.webp")):
+    for image in sorted(SOURCE_IMAGES.glob("evidence-*.png")):
         add_bytes(archive, f"evidence/{image.name}", image.read_bytes())
 
 with ZipFile(TARGET) as archive:
     expected = ["SUBMISSION.md", "laterbill-skill.zip", "LICENSE"] + [
-        f"evidence/evidence-{number}.webp" for number in range(1, 6)
+        f"evidence/evidence-{number}.png" for number in range(1, 6)
     ]
     assert archive.namelist() == expected
     assert archive.testzip() is None
