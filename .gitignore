@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.tmp
+*.log
+.omc/
+.omx/
+laterbill-skill.zip
+release-check/
+release-check-*/
+.validator/
+omx_wiki/
+private-artifacts/

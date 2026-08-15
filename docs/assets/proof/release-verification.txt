@@ -1,0 +1,34 @@
+﻿LATERBILL RELEASE VERIFICATION
+generated_at_utc=2026-08-15T06:03:42+00:00
+
+$ python laterbill/scripts/selftest.py
+PASS  최신 Codex envelope에서 세션·프로젝트·대화를 읽는다
+PASS  근거가 충분하면 빠른 진전·장애물 해소·완결 우선 3안을 제시한다
+PASS  상환 상세계획은 최대 3개 작업과 자가개선 가드레일을 포함한다
+PASS  민감 원문은 승인 전 Markdown과 HTML에서 기본 숨김 처리된다
+PASS  상환안 생성을 위한 프로젝트 점검은 파일을 변경하지 않는다
+33/33 통과
+
+$ python tools/package-skill.py
+files=13 compressed=67311 unpacked=397957
+sha256=3ae0173d16f34e8041cc0ff6d5df44ee9a06b475962fceb856bc7d38914ebb3f
+
+$ unzip laterbill-skill.zip -> temporary directory
+$ python <temporary>/laterbill/scripts/selftest.py
+33/33 통과
+zip_sha256=3ae0173d16f34e8041cc0ff6d5df44ee9a06b475962fceb856bc7d38914ebb3f
+source_and_extracted_same_result=true
+
+ACTUAL SYNTHETIC BEHAVIOR (no personal records)
+codex_resume=codex resume -C "C:\demo\sample-project" "demo-codex-001"
+claude_resume=cd "/demo/sample-project" && claude --resume "demo-claude-001"
+private_source_ref_count=1
+public_source_refs=[]
+public_item_id=lb_public_a
+public_project=<anonymized>
+readonly_before_sha256=e76829ad5ab20e2c29908ef112d63d92db9da832fca8e4f37064f5031c1a1064
+readonly_after_sha256=e76829ad5ab20e2c29908ef112d63d92db9da832fca8e4f37064f5031c1a1064
+readonly_unchanged=true
+utf8_strict_decode_ok=true
+skill_frontmatter_at_byte_zero=true
+windows_powershell_5_hint=Get-Content -Encoding UTF8 <file>
