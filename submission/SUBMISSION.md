@@ -2,13 +2,13 @@
 
 ## 기본 정보
 
-- 스킬명: `하다 만 일 종결반 (Laterbill)`
+- 스킬 이름: `하다 만 일 종결반 (Laterbill)`
 - 제작자명: `에이스`
-- 짧은 설명:
+- 한 줄 설명:
 
 > 로컬 AI 대화에 남은 미완료 업무를 추적하고, 세 가지 실행 가능한 종결안을 제시하는 상환 에이전트입니다.
 
-## 제출 본문
+## 심사·갤러리 설명 본문
 
 ### 회고의 반대편을 만들었습니다
 
@@ -65,13 +65,17 @@ Laterbill은 사용자를 심판하는 청구서가 아닙니다. 잊힌 일을 
 
 ## HTTPS 링크
 
-1. <https://websarang.github.io/laterbill/>
-2. <https://github.com/websarang/laterbill>
+1. 데모·작동 증거: <https://websarang.github.io/laterbill/>
+2. GitHub 소스·설치법: <https://github.com/websarang/laterbill>
+3. 실제 릴리스 검증 로그: <https://websarang.github.io/laterbill/assets/proof/release-verification.txt>
 
-## 이미지와 대체 텍스트
+공식 제출 화면은 이미지와 이미지 대체 텍스트를 받지 않으므로 별도 첨부하지 않습니다.
 
-1. `docs/assets/evidence/evidence-1.webp` — 완료한 일을 요약하는 일반 회고와 끝내지 않은 일을 원금·연체·이자·기한·탕감으로 청구하는 Laterbill의 차이를 비교한 화면
-2. `docs/assets/evidence/evidence-2.webp` — Claude Code와 Codex 로컬 기록 수집부터 중단 지점 판정, 프로젝트와 마지막 세션 복귀, 상환안 선택, 승인 후 실행까지의 흐름
-3. `docs/assets/evidence/evidence-3.webp` — 30분 빠른 진전, 60분 장애물 해소, 120분 완결 우선 세 상환안과 작업 흐름 자가개선 가드레일을 비교한 화면
-4. `docs/assets/evidence/evidence-4.webp` — 근거 부족 시 발행 거부, 민감 원문 승인 전 비공개, 공유 시 원본 좌표 제거라는 세 가지 안전 동작
-5. `docs/assets/evidence/evidence-5.webp` — 현재 소스와 새로 압축 해제한 제출 ZIP에서 각각 33/33 테스트를 통과한 실제 로그 경로와 재현 명령
+## 라이선스와 최종 확인
+
+- 라이선스: MIT (`LICENSE` 동봉)
+- 실행 의존성: Python 3.9+ 표준 라이브러리만 사용
+- 외부 코드·자료·의존성의 라이선스를 확인했습니다.
+- 필요한 출처와 라이선스를 출품물에 표시했습니다.
+- 행사 종료 후 스킬 ZIP과 게시물 자료가 참여자 전원에게 공유되는 조건을 확인했습니다.
+- 공유된 스킬의 이용·수정·재배포 조건은 동봉된 MIT 라이선스를 따릅니다.
