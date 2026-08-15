@@ -53,8 +53,8 @@ Laterbill의 기본 동작은 읽기 전용·로컬 전용입니다. 상환안�
 ```text
 source:     33/33 통과
 fresh ZIP:  33/33 통과
-ZIP:        13 files · 67,311 bytes
-SHA-256:    3ae0173d16f34e8041cc0ff6d5df44ee9a06b475962fceb856bc7d38914ebb3f
+ZIP:        13 files · 67,350 bytes
+SHA-256:    ef6e1716cb507dd3c6d96a8529cbb1acb1a3b2f36447bc04a609b1bdcf534d65
 read-only:  README.md before SHA-256 == after SHA-256 · true
 public:     source_refs=[] · project=<anonymized> · item_id=lb_public_a
 ```

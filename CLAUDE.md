@@ -26,8 +26,8 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 - 명령: `python tools/verify-release.py`
 - 현재 소스: `33/33 통과`
 - 새 ZIP 압축 해제본: `33/33 통과`
-- ZIP: `laterbill-skill.zip`, 13 files, 67,311 bytes
-- SHA-256: `3ae0173d16f34e8041cc0ff6d5df44ee9a06b475962fceb856bc7d38914ebb3f`
+- ZIP: `laterbill-skill.zip`, 13 files, 67,350 bytes
+- SHA-256: `ef6e1716cb507dd3c6d96a8529cbb1acb1a3b2f36447bc04a609b1bdcf534d65`
 - 공개 증거: `docs/assets/proof/release-verification.txt`
 - 이미지: `docs/assets/evidence/evidence-1.webp`부터 `evidence-5.webp`
 - 독립 심사: 45/50, 47/50 · 평균 92/100 · 치명적 결함 0 · 필수 수정 0
@@ -50,9 +50,9 @@ Codex와 Claude Code 어느 쪽에서 열더라도 먼저 다음 문서를 읽�
 
 ## 남은 외부 단계
 
-1. 공개 저장소 `main`에 push하고 GitHub Pages를 `/docs`로 활성화한다.
-2. 로그아웃 상태에서 저장소·Pages·proof 로그를 확인한다.
-3. 제출 화면에 본문, 링크 2개, WebP 5장, ZIP을 올린다.
+1. `main` push와 GitHub Pages 공개는 완료했다. 최종 해시 갱신 커밋도 push한다.
+2. 로그아웃 상태에서 저장소·Pages·proof 로그를 확인했다.
+3. 제출 화면에 `laterbill-skill.zip`, 제출 본문과 HTTPS 링크 2개를 올린다. 공식 화면은 이미지·대체 텍스트를 받지 않는다.
 4. 전화번호, PIN, 동의는 사용자가 직접 입력한다.
 5. 제출번호, 상태, 업로드 시각, ZIP 크기와 잠금 상태를 이 문서와 인수인계 문서에 기록한다.
 
